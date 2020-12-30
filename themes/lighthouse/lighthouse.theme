@@ -1,0 +1,78 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: tom
+ * Date: 1/29/20
+ * Time: 4:04 PM
+ */
+
+function lighthouse_preprocess_html(&$vars) {
+  //set up some helpful class names based on node types for the body tag
+  $path_args = explode('/', \Drupal::request()->getPathInfo());
+  if(!empty($path_args)) {
+    foreach($path_args as $arg) {
+      if(!empty($arg) && !is_numeric($arg)) {
+        $vars['attributes']['class'][] = $arg;
+      }
+    }
+  }
+  if(!empty($path_args[1]) && !empty($path_args[2]) && $path_args[1] == 'node' && is_numeric($path_args[2])) {
+    $vars['attributes']['class'][] = $path_args[1].'-'.$path_args[2];
+  }
+  if (!empty($vars['node_type'])) {
+    $vars['attributes']['class'][] = 'node-'.$vars['node_type'];
+  }
+  $lang = \Drupal::languageManager()->getCurrentLanguage()->getId();
+  $vars['attributes']['class'][] = $lang;
+}
+
+function lighthouse_preprocess_page(&$vars) {
+
+}
+
+function lighthouse_preprocess_field(&$vars) {
+  //add field name to every field's attributes class
+  $vars['attributes']['class'][] = 'field';
+  $c = str_replace(' ', '-', strtolower($vars['element']['#title']));
+  $c = str_replace('(', '', strtolower($c));
+  $c = str_replace(')', '', strtolower($c));
+  $vars['attributes']['class'][] = $c;
+  if($vars['element']['#label_display'] == 'inline'){
+    $vars['attributes']['class'][] = 'inline';
+  }
+}
+
+/**
+ * Implements hook_pre_render_HOOK() for menu-local-tasks templates.
+ */
+function lighthouse_preprocess_menu_local_tasks(&$variables) {
+  if (!empty($variables['primary'])) {
+    $variables['primary']['#attached'] = array(
+      'library' => array(
+        'seven/drupal.nav-tabs',
+      ),
+    );
+  }
+  elseif (!empty($variables['secondary'])) {
+    $variables['secondary']['#attached'] = array(
+      'library' => array(
+        'seven/drupal.nav-tabs',
+      ),
+    );
+  }
+}
+
+//create template suggestions for block types
+function lighthouse_theme_suggestions_block_alter(&$suggestions, $variables) {
+  $content = $variables['elements']['content'];
+  if (isset($content['#block_content']) && $content['#block_content'] instanceof \Drupal\block_content\BlockContentInterface) {
+    $suggestions[] = 'block__' . $content['#block_content']->bundle();
+  }
+}
+
+
+function lighthouse_theme_suggestions_page_alter(array &$suggestions, array $variables) {
+  if ($node = \Drupal::routeMatch()->getParameter('node')) {
+    $suggestions[] = 'page__' . $node->bundle();
+  }
+}

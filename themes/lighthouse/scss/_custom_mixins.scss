@@ -1,0 +1,38 @@
+@mixin box-shadow($hoff: 2px, $yoff: 2px, $blur: 4px, $spread: 0, $color: rgba(0,0,0,.175)) {
+  -webkit-box-shadow: $hoff $yoff $blur $spread $color;
+  -moz-box-shadow: $hoff $yoff $blur $spread $color;
+  box-shadow: $hoff $yoff $blur $spread $color;
+}
+@mixin border-radius($amt:4px) {
+  -webkit-border-radius: $amt;
+  -moz-border-radius: $amt;
+  border-radius: $amt;
+}
+@mixin border-radius-btm($bottom-right:6px, $bottom-left:6px) {
+  -webkit-border-bottom-right-radius: $bottom-right;
+  -webkit-border-bottom-left-radius: $bottom-left;
+  -moz-border-radius-bottomright: $bottom-right;
+  -moz-border-radius-bottomleft: $bottom-left;
+  border-bottom-right-radius: $bottom-right;
+  border-bottom-left-radius: $bottom-left;
+}
+@mixin border-radius-top($top-right:4px, $top-left:4px) {
+  -webkit-border-top-right-radius: $top-right;
+  -webkit-border-top-left-radius: $top-left;
+  -moz-border-radius-topright: $top-right;
+  -moz-border-radius-topleft: $top-left;
+  border-top-right-radius: $top-right;
+  border-top-left-radius: $top-left;
+}
+@mixin border-radius-inset-top($hoff:0, $yoff:0, $blur:10px, $spread:-3px, $transp:0.45) {
+  -webkit-box-shadow: inset $hoff $yoff $blur $spread rgba(0, 0, 0, $transp);
+  -moz-box-shadow: inset $hoff  $yoff $blur $spread rgba(0, 0, 0, $transp);
+  box-shadow: inset $hoff $yoff $blur $spread rgba(0, 0, 0, $transp);
+}
+@mixin animate-background-color($time:500ms) {
+  -webkit-transition: background-color $time linear;
+  -moz-transition: background-color $time linear;
+  -o-transition: background-color $time linear;
+  -ms-transition: background-color $time linear;
+  transition: background-color $time linear;
+}

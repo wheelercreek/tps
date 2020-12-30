@@ -1,0 +1,6 @@
+.toolbar, .breadcrumb_wrapper, form, iframe {
+    display:none;
+}
+a[href]:after {
+    content: none !important;
+}

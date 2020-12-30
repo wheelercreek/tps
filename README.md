@@ -1,2 +1,0 @@
-# tps
-Thomas Point Shoal

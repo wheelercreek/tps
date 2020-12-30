@@ -1,0 +1,16 @@
+.accordion div.accordion-content {
+    display:block !important;
+}
+body {
+    background:transparent;
+}
+body.cke_editable {
+    padding:10px !important;
+    font-family: 'Fira Sans', 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;
+}
+p {
+    font-size:0.9em !important;
+}
+h1, h2, h3, h4, h5 {
+    font-family: 'Lato', 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;
+}

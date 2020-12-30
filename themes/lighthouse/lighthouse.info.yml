@@ -1,0 +1,32 @@
+name: Lighthouse
+type: theme
+description: A custom theme for Drupal 9, uses Foundation 6.  Created by Wheelercreek Studio, Inc.
+base theme: stable
+core_version_requirement: ^8 || ^9
+libraries:
+- lighthouse/global-styling
+ckeditor_stylesheets:
+- css/style.css
+- css/ckeditor-extras.css
+regions:
+  header: Header
+  branding: Branding
+  primary_menu: 'Primary Menu'
+  breadcrumb: Breadcrumb
+  highlighted: Highlighted
+  help: Help
+  content: Content
+  content2: Content Row 2
+  content3: Content Row 3
+  home_banner_row: Home Banner Row 1
+  home_r2_left: Home Row 2 Left
+  home_r2_right: Home Row 2 Right
+  home_r3_col1: Home Row 3 Column Left
+  home_r3_col2: Home Row 3 Column Middle
+  home_r3_col3: Home Row 3 Column Right
+  home_r4: Home Row 4
+  sidebar_right: 'Sidebar Right'
+  sidebar_left: 'Sidebar Left'
+  footer: Footer
+  footer2: Footer 2
+  footer_sub: Sub Footer
