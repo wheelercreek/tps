@@ -57,5 +57,6 @@
  */
 $sites = array(
   'thomaspointshoallighthouse.org' => 'thomas-point',
+  'www.thomaspointshoallighthouse.org' => 'thomas-point',
   'thomas-point-local' => 'thomas-point',
 );
