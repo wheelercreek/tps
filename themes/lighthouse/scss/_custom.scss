@@ -130,7 +130,10 @@ main {
     color: #f63718;
     font-family: "berthold_citylight","Helvetica Neue","Helvetica",sans-serif;
     text-rendering: optimizeLegibility;
-
+    @include breakpoint(small down) {
+      font-size:2.313rem;
+      line-height: 35px;
+    }
   }
   .large_call {
     font-size: 4.3125rem;
@@ -138,6 +141,10 @@ main {
     font-family: "berthold_citybold","Helvetica Neue","Helvetica",sans-serif;
     text-transform: uppercase;
     font-weight: normal;
+    @include breakpoint(small down) {
+      font-size:2.8rem;
+      line-height: 47px;
+    }
   }
 }
 .row-4-callout {
@@ -149,6 +156,9 @@ main {
     padding-right: 30px;
     border-left: 10px solid #f63718;
     margin-left: 33px;
+    @include breakpoint(small down) {
+      max-width: 260px;
+    }
   }
 }
 
