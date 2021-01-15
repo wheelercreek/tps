@@ -109,8 +109,8 @@ main {
   margin: 90px 0 0 0;
   padding: 40px 0;
   p {
-    font-size:28px;
-    line-height: 34px;
+    font-size:25px;
+    line-height: 30px;
     font-family: "berthold_citylight","Helvetica Neue","Helvetica",sans-serif;
     text-rendering: optimizeLegibility;
     color: #ECECEC;
@@ -198,23 +198,6 @@ footer {
 #block-websiteby {
   text-align: right;
 }
-/*nav#block-stonesoup-footer {
-  text-align:right;
-  ul li {
-    display:inline-block;
-    list-style:none;
-    margin-left:30px;
-  }
-  ul {
-    @include breakpoint(small down) {
-      margin-left: 0;
-    }
-  }
-  @include breakpoint(small down) {
-    text-align:left;
-  }
-}*/
-
 
 .tabs-primary ul {
   padding:7px 1em;

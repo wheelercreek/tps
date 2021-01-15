@@ -1,0 +1,44 @@
+The Better Mega Menu 8.x-1.0-beta2, 2020-10-02
+--------------------------------------------
+- Issue #3172977 by Ramya Balasubramanian, dev.patrick: Unwanted special
+  characters in hook help.
+- Issue #3174465 by John.nie: Mega menu missing config_export definition
+  in its annotation.
+- Issue #3174475 by John.nie: Array and string offset access syntax with
+  curly braces is deprecated
+- Issue #3174476 by John.nie, themodularlab: Render #post_render callbacks must be methods
+  of a class that implements \Drupal\Core\Security\TrustedCallbackInterface
+  or be an anonymous function.
+
+The Better Mega Menu 8.x-1.0-beta1, 2020-09-11
+--------------------------------------------
+- Issue #3149011 by Project Update Bot, themodularlab: Automated Drupal 9 compatibility fixes
+
+The Better Mega Menu 8.x-1.0-beta1, 2020-08-24
+--------------------------------------------
+- Issue #3002715 by i_g_wright, themodularlab, mellowtothemax: Admin permissions
+  set too high
+
+The Better Mega Menu 8.x-1.0-beta1, 2020-08-11
+--------------------------------------------
+- Reverting CSS related to accessibility on Issue #3095820
+
+The Better Mega Menu 8.x-1.0-beta1, 2020-08-07
+--------------------------------------------
+- Issue #2882051 by knaffles, maithili11: Top level drop downs do not work on
+  touch devices when the menu item path is set to <nolink>
+- Issue #3095820 Restore missing snippet for left arrow. Also fix issue where
+  <nolink> top level menu items are not focusable using left/right arrow keys.
+
+The Better Mega Menu 8.x-1.0-beta1, 2020-08-04
+--------------------------------------------
+- Issue #2952410 by ankitjain28may, SivaprasadC: Typo in
+  css/tb_megamenu.default.css
+- Issue #2982006 by brahmjeet789, Neetika K, Vidushi Mehta: Hook help is missing
+- Issue #2921195 by Zemelia, pafa7a: Missing array keys cause notices
+- Issue #2996857 by knyshuk.vova: Incorrect contextual link generation leads to
+  an error.
+- Issue #3045390 by RuslanP, knaffles: Module Description: add dot to the end of
+  the sentence.
+- Issue #3095820 by themodularlab, knaffles, RuslanP: D8 Accessibility Upgrades
+- Added readme.md
