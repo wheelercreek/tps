@@ -5,8 +5,3 @@ description: 'Theme for testing special characters in block admin.'
 regions:
   content: Content
   help: Help
-
-# Information added by Drupal.org packaging script on 2020-12-02
-version: '9.1.0'
-project: 'drupal'
-datestamp: 1606933306
