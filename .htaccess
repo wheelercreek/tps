@@ -106,7 +106,7 @@ AddEncoding gzip svgz
   # RewriteRule ^ http%{ENV:protossl}://%1%{REQUEST_URI} [L,R=301]
 
    RewriteCond %{HTTPS} off [OR]
-   RewriteCond %{HTTP_HOST} ^www\. [NC]
+   RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
    RewriteRule ^ https://thomaspointshoallighthouse.org%{REQUEST_URI} [L,NE,R=301]
 
   # Modify the RewriteBase if you are using Drupal in a subdirectory or in a
