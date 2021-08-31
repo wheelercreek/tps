@@ -32,6 +32,7 @@ return array(
     'Drupal\\Core\\DependencyInjection\\Container' => $baseDir . '/core/lib/Drupal/Core/DependencyInjection/Container.php',
     'Drupal\\Core\\DrupalKernel' => $baseDir . '/core/lib/Drupal/Core/DrupalKernel.php',
     'Drupal\\Core\\DrupalKernelInterface' => $baseDir . '/core/lib/Drupal/Core/DrupalKernelInterface.php',
+    'Drupal\\Core\\Http\\InputBag' => $baseDir . '/core/lib/Drupal/Core/Http/InputBag.php',
     'Drupal\\Core\\Installer\\InstallerRedirectTrait' => $baseDir . '/core/lib/Drupal/Core/Installer/InstallerRedirectTrait.php',
     'Drupal\\Core\\Site\\Settings' => $baseDir . '/core/lib/Drupal/Core/Site/Settings.php',
     'JsonException' => $vendorDir . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
