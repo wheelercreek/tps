@@ -40,7 +40,10 @@
             "drupal/core-composer-scaffold": true,
             "drupal/core-project-message": true,
             "drupal/core-vendor-hardening": true
-        }
+        },
+        "platform": {
+           "php":"7.4"
+	}
     },
     "extra": {
         "drupal-scaffold": {
