@@ -42,7 +42,7 @@
             "drupal/core-vendor-hardening": true
         },
         "platform": {
-           "php":"7.4"
+           "php":"8.0.28"
 	}
     },
     "extra": {
