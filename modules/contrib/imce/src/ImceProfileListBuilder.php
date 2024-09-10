@@ -16,6 +16,7 @@ class ImceProfileListBuilder extends ConfigEntityListBuilder {
    * {@inheritdoc}
    */
   public function buildHeader() {
+    $header = [];
     $header['label'] = $this->t('Name');
     $header['description'] = $this->t('Description');
     return $header + parent::buildHeader();
@@ -25,6 +26,8 @@ class ImceProfileListBuilder extends ConfigEntityListBuilder {
    * {@inheritdoc}
    */
   public function buildRow(EntityInterface $imce_profile) {
+    /** @var \Drupal\imce\Entity\ImceProfile $imce_profile */
+    $row = [];
     $row['label'] = $imce_profile->label();
     $row['description'] = $imce_profile->get('description');
     return $row + parent::buildRow($imce_profile);

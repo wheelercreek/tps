@@ -5,11 +5,12 @@
  * Adding classes to blocks.
  */
 
-use Drupal\Core\Form\FormStateInterface;
+use Drupal\block\BlockInterface;
 use Drupal\block\Entity\Block;
 use Drupal\Component\Utility\Html;
+use Drupal\Core\Entity\EntityFormInterface;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
-use Drupal\block\BlockInterface;
 use Drupal\Core\Url;
 
 /**
@@ -51,20 +52,21 @@ function block_class_block_presave(BlockInterface $entity) {
  */
 function block_class_form_block_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   if (\Drupal::currentUser()->hasPermission('administer block classes')) {
+    $form_object = $form_state->getFormObject();
+    if ($form_object instanceof EntityFormInterface) {
+      /** @var \Drupal\block\BlockInterface $block */
+      $block = $form_object->getEntity();
 
-    /** @var \Drupal\block\BlockInterface $block */
-    $block = $form_state->getFormObject()->getEntity();
-
-    // This will automatically be saved in the third party settings.
-    $form['third_party_settings']['#tree'] = TRUE;
-    $form['third_party_settings']['block_class']['classes'] = [
-      '#type' => 'textfield',
-      '#title' => t('CSS class(es)'),
-      '#description' => t('Customize the styling of this block by adding CSS classes. Separate multiple classes by spaces.'),
-      '#default_value' => $block->getThirdPartySetting('block_class', 'classes'),
-      '#maxlength' => 255,
-    ];
-
+      // This will automatically be saved in the third party settings.
+      $form['third_party_settings']['#tree'] = TRUE;
+      $form['third_party_settings']['block_class']['classes'] = [
+        '#type' => 'textfield',
+        '#title' => t('CSS class(es)'),
+        '#description' => t('Customize the styling of this block by adding CSS classes. Separate multiple classes by spaces.'),
+        '#default_value' => $block->getThirdPartySetting('block_class', 'classes'),
+        '#maxlength' => 255,
+      ];
+    }
   }
 }
 
@@ -81,5 +83,22 @@ function block_class_preprocess_block(&$variables) {
         $variables['attributes']['class'][] = Html::cleanCssIdentifier($class, []);
       }
     }
+  }
+}
+
+/**
+ * Implements hook_migration_plugins_alter().
+ */
+function block_class_migration_plugins_alter(array &$definitions) {
+  $d7_block_migrations = array_filter($definitions, function (array $definition) {
+    return $definition['id'] === 'd7_block';
+  });
+
+  foreach (array_keys($d7_block_migrations) as $d7_block_migration_id) {
+    $definitions[$d7_block_migration_id]['process']['third_party_settings/block_class/classes'] = [
+      'plugin' => 'default_value',
+      'source' => 'css_class',
+      'default_value' => NULL,
+    ];
   }
 }

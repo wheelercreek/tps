@@ -12,7 +12,6 @@
         },
         {
             "name": "Renato Gonçalves (RenatoG)",
-            "email": "renatog@ciandt.com",
             "homepage": "https://www.drupal.org/u/RenatoG",
             "role": "Maintainer"
         },
@@ -68,8 +67,5 @@
         "source": "https://git.drupalcode.org/project/block_class"
     },
     "license": "GPL-2.0-or-later",
-    "minimum-stability": "dev",
-    "require": {
-        "drupal/core": "^8 || ^9"
-    }
+    "minimum-stability": "dev"
 }

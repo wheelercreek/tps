@@ -18,15 +18,25 @@ class TokenBlockTest extends TokenTestBase {
   protected static $modules = ['block', 'node', 'views', 'block_content'];
 
   /**
+   * Admin user.
+   *
+   * @var \Drupal\user\UserInterface
+   */
+  protected $adminUser;
+
+  /**
    * {@inheritdoc}
    */
   public function setUp(): void {
     parent::setUp();
-    $this->admin_user = $this->drupalCreateUser(['access content', 'administer blocks']);
-    $this->drupalLogin($this->admin_user);
+    $this->adminUser = $this->drupalCreateUser(['access content', 'administer blocks']);
+    $this->drupalLogin($this->adminUser);
   }
 
-  public function testBlockTitleTokens() {
+  /**
+   * {@inheritdoc}
+   */
+  public function testBlockTitleTokens(): void {
     $label = 'tokenblock';
     $bundle = BlockContentType::create([
       'id' => $label,
@@ -65,7 +75,7 @@ class TokenBlockTest extends TokenTestBase {
     $this->drupalCreateContentType(['type' => 'page']);
     $node = $this->drupalCreateNode(['title' => "Site's first node"]);
     $this->drupalGet('node/' . $node->id());
-    // The apostraphe should only be escaped once.
+    // The apostrophe should only be escaped once.
     $this->assertSession()->responseContains("Site&#039;s first node block title");
   }
 }

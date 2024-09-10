@@ -30,6 +30,10 @@ class TokenMenuTest extends TokenTestBase {
   ];
 
   function testMenuTokens() {
+
+    $admin = $this->drupalCreateUser(['administer menu', 'link to any page']);
+    $this->drupalLogin($admin);
+
     // Make sure we have a body field on the node type.
     $this->drupalCreateContentType(['type' => 'page']);
     // Add a menu.
@@ -144,6 +148,7 @@ class TokenMenuTest extends TokenTestBase {
       'administer nodes',
       'administer content types',
       'access administration pages',
+      'administer site configuration'
     ]));
     // Setup node type menu options.
     $edit = [
@@ -152,7 +157,7 @@ class TokenMenuTest extends TokenTestBase {
       'menu_parent' => 'main-menu:',
     ];
     $this->drupalGet('admin/structure/types/manage/page');
-    $this->submitForm($edit, 'Save content type');
+    $this->submitForm($edit, 'Save');
 
     // Use a menu-link token in the body.
     $this->drupalGet('node/add/page');

@@ -2,7 +2,7 @@ name: Lighthouse
 type: theme
 description: A custom theme for Drupal 9, uses Foundation 6.  Created by Wheelercreek Studio, Inc.
 base theme: stable
-core_version_requirement: ^8 || ^9
+core_version_requirement: ^8 || ^9 || ^10 || ^11
 libraries:
 - lighthouse/global-styling
 ckeditor_stylesheets:

@@ -12,12 +12,19 @@ use Drupal\taxonomy\VocabularyInterface;
  *
  * @group token
  */
-class EntityTest extends KernelTestBase {
+class EntityTest extends TokenKernelTestBase {
 
   /**
    * {@inheritdoc}
    */
   protected static $modules = ['node', 'taxonomy', 'text'];
+
+  /**
+   * Vocabulary for testing chained token support.
+   *
+   * @var \Drupal\taxonomy\VocabularyInterface
+   */
+  protected $vocabulary;
 
   /**
    * {@inheritdoc}
@@ -26,17 +33,15 @@ class EntityTest extends KernelTestBase {
     parent::setUp();
 
     // Create the default tags vocabulary.
-    $vocabulary = Vocabulary::create([
+    $this->vocabulary = Vocabulary::create([
       'name' => 'Tags',
       'vid' => 'tags',
     ]);
-    $vocabulary->save();
+    $this->vocabulary->save();
 
     $this->installEntitySchema('taxonomy_term');
     $this->installEntitySchema('user');
     $this->installEntitySchema('node');
-
-    $this->vocab = $vocabulary;
   }
 
   function testEntityMapping() {

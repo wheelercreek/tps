@@ -36,7 +36,7 @@ class ImceFolderTest extends KernelTestBasePlugin {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() : void {
+  protected function setUp(): void {
     parent::setUp();
     $this->imceFolder = new ImceFolder('js', $this->getConf());
     $this->imceFolder->setFm($this->getImceFM());
@@ -58,7 +58,7 @@ class ImceFolderTest extends KernelTestBasePlugin {
   /**
    * Test inherited method ImceFolder::fm().
    */
-  public function testFM() {
+  public function testFm() {
     $this->assertInstanceOf(ImceFM::class, $this->imceFolder->fm());
   }
 
@@ -67,7 +67,7 @@ class ImceFolderTest extends KernelTestBasePlugin {
    */
   public function testFiles() {
     $files = $this->imceFolder->files;
-    $this->assertIsArray(($files));
+    $this->assertIsArray($files);
   }
 
   /**
@@ -75,7 +75,7 @@ class ImceFolderTest extends KernelTestBasePlugin {
    */
   public function testSubfolders() {
     $subfolders = $this->imceFolder->subfolders;
-    $this->assertIsArray(($subfolders));
+    $this->assertIsArray($subfolders);
   }
 
   /**
@@ -100,7 +100,7 @@ class ImceFolderTest extends KernelTestBasePlugin {
    */
   public function testItem() {
     $items = $this->imceFolder->items;
-    $this->assertIsArray(($items));
+    $this->assertIsArray($items);
   }
 
   /**
