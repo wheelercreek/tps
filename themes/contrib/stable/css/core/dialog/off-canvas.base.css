@@ -5,7 +5,7 @@
 
 /* Set some global attributes. */
 #drupal-off-canvas:not(.drupal-off-canvas-reset),
-#drupal-off-canvas {
+#drupal-off-canvas-wrapper {
   color: #ddd;
   background: #444;
 }
