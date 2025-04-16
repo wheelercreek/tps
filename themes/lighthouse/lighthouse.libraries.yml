@@ -4,6 +4,7 @@ global-styling:
     theme:
       css/webfonts/stylesheet.css: {}
       css/style.css: {}
+      css/extras.css: {}
       css/print.css: { media: print }
   js:
     node_modules/what-input/dist/what-input.js: {}

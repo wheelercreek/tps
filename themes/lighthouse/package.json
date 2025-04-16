@@ -1,18 +1,10 @@
 {
-  "name": "stonesoup",
+  "name": "tplh",
   "version": "1.0.0",
   "description": "Drupal theme utilizing Foundation 6 framework",
   "main": "scss/style.scss",
-  "dependencies": {
-    "foundation-sites": "^6.6.3"
-  },
-  "devDependencies": {},
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Tom Wheeler",
-  "license": "ISC",
-  "scripts": {
-    "sass": "node-sass scss/style.scss css/style.css --watch  --output-style=compressed"
+    "sass": "sass --watch scss/style.scss:css/app.css --style compressed"
   }
 }

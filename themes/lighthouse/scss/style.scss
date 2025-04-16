@@ -1,8 +1,6 @@
-@import '_settings';
-//noinspection CssUnknownTarget
-@import 'node_modules/foundation-sites/scss/foundation';
-//noinspection CssUnknownTarget
-@import 'node_modules/motion-ui/src/motion-ui';
+@import 'settings';
+@import '../node_modules/foundation-sites/scss/foundation';
+@import '../node_modules/motion-ui/src/motion-ui';
 
 
 // Global styles
@@ -65,5 +63,5 @@
 @include motion-ui-animations;
 
 @import 'custom_mixins';
-@import '_custom';
+@import 'custom';
 /* to compile this use "npm run sass" -- see the package.json */
