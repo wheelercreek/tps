@@ -102,9 +102,6 @@ main {
 .row-callout {
   background: url(/themes/lighthouse/images/red_callout_bg.jpg) transparent 0 0;
   height: 257px;
-  @include breakpoint(small down) {
-    height: auto;
-  }
   color: white;
   margin: 90px 0 0 0;
   padding: 40px 0;
@@ -148,6 +145,11 @@ main {
       font-size:2.8rem;
       line-height: 47px;
     }
+  }
+}
+@media print, screen and (max-width: 39.9988em) {
+  .row-callout {
+    height: auto;
   }
 }
 .row-4-callout {
