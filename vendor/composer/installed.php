@@ -3,7 +3,7 @@
         'name' => 'nstp/nstp_web',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '97e2e338b4679389e672253be1b0e972eff0a418',
+        'reference' => '5a7a6f79aef5d24f948194f149b09d69ea8cd9fa',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -469,6 +469,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'drupal/webform' => array(
+            'pretty_version' => '6.2.9',
+            'version' => '6.2.9.0',
+            'reference' => '6.2.9',
+            'type' => 'drupal-module',
+            'install_path' => __DIR__ . '/../../modules/contrib/webform',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'drush/drush' => array(
             'pretty_version' => '12.5.3',
             'version' => '12.5.3.0',
@@ -580,7 +589,7 @@
         'nstp/nstp_web' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '97e2e338b4679389e672253be1b0e972eff0a418',
+            'reference' => '5a7a6f79aef5d24f948194f149b09d69ea8cd9fa',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
