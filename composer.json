@@ -24,6 +24,7 @@
         "drupal/quickedit": "^1.0",
         "drupal/rdf": "^2.1",
         "drupal/seven": "^1.0",
+        "drupal/smtp": "^1.4",
         "drupal/stable": "^2.0",
         "drupal/stage_file_proxy": "^3.1",
         "drupal/token": "^1.15",
