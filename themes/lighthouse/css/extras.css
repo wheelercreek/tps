@@ -13,3 +13,8 @@
 .banner-feature ul li {
 
 }
+@media print, screen and (max-width: 39.9988em) {
+    .row-callout {
+        height: auto;
+    }
+}
