@@ -23,6 +23,7 @@
         "drupal/pathauto": "^1.13",
         "drupal/quickedit": "^1.0",
         "drupal/rdf": "^2.1",
+        "drupal/recaptcha": "^3.4",
         "drupal/seven": "^1.0",
         "drupal/smtp": "^1.4",
         "drupal/stable": "^2.0",
