@@ -35,6 +35,10 @@ class ComposerStaticInitefba49473575d5ef8fc8b6b069696a2b
             'phootwork\\lang\\' => 15,
             'phootwork\\collection\\' => 21,
         ),
+        'W' => 
+        array (
+            'Wikimedia\\Composer\\Merge\\V2\\' => 28,
+        ),
         'T' => 
         array (
             'Twig\\' => 5,
@@ -86,7 +90,6 @@ class ComposerStaticInitefba49473575d5ef8fc8b6b069696a2b
             'Psr\\Http\\Client\\' => 16,
             'Psr\\EventDispatcher\\' => 20,
             'Psr\\Container\\' => 14,
-            'Psr\\Cache\\' => 10,
             'PhpParser\\' => 10,
             'Peast\\' => 6,
             'PHPMailer\\PHPMailer\\' => 20,
@@ -123,7 +126,6 @@ class ComposerStaticInitefba49473575d5ef8fc8b6b069696a2b
             'DrupalCodeGenerator\\' => 20,
             'Doctrine\\Deprecations\\' => 22,
             'Doctrine\\Common\\Lexer\\' => 22,
-            'Doctrine\\Common\\Annotations\\' => 28,
             'Dflydev\\DotAccessData\\' => 22,
         ),
         'C' => 
@@ -156,6 +158,10 @@ class ComposerStaticInitefba49473575d5ef8fc8b6b069696a2b
         'phootwork\\collection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phootwork/collection',
+        ),
+        'Wikimedia\\Composer\\Merge\\V2\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/wikimedia/composer-merge-plugin/src',
         ),
         'Twig\\' => 
         array (
@@ -318,10 +324,6 @@ class ComposerStaticInitefba49473575d5ef8fc8b6b069696a2b
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
         ),
-        'Psr\\Cache\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/psr/cache/src',
-        ),
         'PhpParser\\' => 
         array (
             0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
@@ -405,10 +407,6 @@ class ComposerStaticInitefba49473575d5ef8fc8b6b069696a2b
         'Doctrine\\Common\\Lexer\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/lexer/src',
-        ),
-        'Doctrine\\Common\\Annotations\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/doctrine/annotations/lib/Doctrine/Common/Annotations',
         ),
         'Dflydev\\DotAccessData\\' => 
         array (
