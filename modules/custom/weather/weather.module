@@ -1,5 +1,7 @@
 <?php
 
+use Drupal\Component\Datetime\DateTimePlus;
+
 function weather_cron() {
   /*
     documentation
@@ -14,10 +16,11 @@ function weather_cron() {
   $token = "Token 877a8a6c16db4b3755693367eaa69e93267c07f0";
 
   // API calls have a limit of 1 per 60 seconds
-  $end_date = date('Y-m-d h:i:s');
+  date_default_timezone_set('America/New_York');
+  $end_date = date('Y-m-d H:i:s');
   // get 1 hour back for the start
-  $interval = 3600 * 1;
-  $start_date = date('Y-m-d h:i:s', \Drupal::time()->getRequestTime() - $interval);
+  $interval = 3600;
+  $start_date = date('Y-m-d H:i:s', \Drupal::time()->getRequestTime() - $interval);
 
   $filters = array(
     'device_sn' => "z6-33058",
@@ -30,6 +33,7 @@ function weather_cron() {
     'device_depth' => 'true',
   );
   $url = $server . http_build_query($filters);
+  \Drupal::logger('weather')->notice('Weather queried for: '.$start_date . ' - ' . $end_date);
 
   $ch = \curl_init();
   curl_setopt($ch, CURLOPT_URL, $url);

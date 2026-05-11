@@ -4,7 +4,7 @@ description: 'Support module for the Quick Edit module tests.'
 package: Testing
 core_version_requirement: ">=9"
 
-# Information added by Drupal.org packaging script on 2025-12-02
-version: '1.0.4'
+# Information added by Drupal.org packaging script on 2026-02-11
+version: '1.0.5'
 project: 'quickedit'
-datestamp: 1764684203
+datestamp: 1770802334
