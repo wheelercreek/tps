@@ -66,7 +66,9 @@ class Weather extends BlockBase {
       $water_temp = $content->data->{'Water Temperature'}[0]->{'readings'}[0]->{'value'};
       $water_temp_F = $water_temp * 1.8 + 32;
       $precipitation = $content->data->{'Precipitation'}[0]->{'readings'}[0]->{'value'};
+      $precipitation = round($precipitation / 25.4, 2);
       $water_level = $content->data->{'Water Level'}[0]->{'readings'}[0]->{'value'};
+      $water_level = round($water_level / 304.8, 2);
 
       $output = '<a class="button" href="#" data-open="weather_modal">Current Weather Conditions</a>';
       $output .= '<div class="reveal" id="weather_modal" data-reveal>';
@@ -78,8 +80,8 @@ class Weather extends BlockBase {
       $output .= '<div class="row"><span class="weather_label">Wind Speed:</span> <span class="weather_val">' . $wind_speed. ' meters/second</span></div>';
       $output .= '<div class="row"><span class="weather_label">Wind Gust:</span> <span class="weather_val">' . $wind_gust. ' meters/second</span></div>';
       $output .= '<div class="row"><span class="weather_label">Water Temperature:</span> <span class="weather_val">' . $water_temp_F. ' &#8457;</span></div>';
-      $output .= '<div class="row"><span class="weather_label">Water Level:</span> <span class="weather_val">' . $water_level. ' mm</span></div>';
-      $output .= '<div class="row"><span class="weather_label">Precipitation:</span> <span class="weather_val">' . $precipitation. ' mm.</span></div>';
+      $output .= '<div class="row"><span class="weather_label">Water Level:</span> <span class="weather_val">' . $water_level. ' ft.</span></div>';
+      $output .= '<div class="row"><span class="weather_label">Precipitation:</span> <span class="weather_val">' . $precipitation. ' in.</span></div>';
       $output .= '<p>These readings come from an underwater weather sensor at the lighthouse.</p></div>';
       $output .= '<button class="close-button" data-close aria-label="Close modal" type="button"><span aria-hidden="true">&times;</span></button></div>';
     }
