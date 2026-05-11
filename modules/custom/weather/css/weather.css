@@ -1,0 +1,26 @@
+#block-lighthouse-weatherblock {
+  float: right;
+  margin-right: 1em;
+  margin-top: 1.5em;
+}
+.sf-dump {
+  float: right;
+  width: 600px;
+}
+.weather_container {
+  width: 390px;
+}
+.weather_container .row {
+  display: flex;
+  justify-content: space-between;
+}
+.weather_container p {
+  margin-top: 1em;
+  font-size: 0.9em;
+  font-style: italic;
+}
+@media print, screen and (min-width: 40em) {
+  .reveal {
+    width: 430px !important;
+  }
+}

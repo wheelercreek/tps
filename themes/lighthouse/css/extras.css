@@ -18,3 +18,14 @@
         height: auto;
     }
 }
+span.menu-name {
+  color: #004868;
+  font-weight: 800;
+  font-size: 1.3em;
+}
+.menu-icon::after {
+  background: #004868;
+  box-shadow: 0 7px 0 #004868,0 14px 0 #004868;
+  height: 3px;
+  top: -3px;
+}

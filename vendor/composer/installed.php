@@ -3,7 +3,7 @@
         'name' => 'nstp/nstp_web',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '978d98234578e770050f9d63e02a6f831e97918c',
+        'reference' => '2a76478c5393db32b9412d188961eab2700c5ed5',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -751,7 +751,7 @@
         'nstp/nstp_web' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '978d98234578e770050f9d63e02a6f831e97918c',
+            'reference' => '2a76478c5393db32b9412d188961eab2700c5ed5',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

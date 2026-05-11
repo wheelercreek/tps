@@ -1,0 +1,8 @@
+drupal.weather:
+  css:
+    component:
+      css/weather.css: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
