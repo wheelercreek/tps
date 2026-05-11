@@ -35,6 +35,7 @@ class Weather extends BlockBase {
       $air_temp_F = $air_temp * 1.8 + 32;
       $atmospheric_pressure = $content->data->{'Atmospheric Pressure'}[0]->{'readings'}[0]->{'value'};
       $wind_gust = $content->data->{'Gust Speed'}[0]->{'readings'}[0]->{'value'};
+      $wind_gust = round($wind_gust * 2.23694, 2); // convert meters/second to miles/hour
       $wind_dir = $content->data->{'Wind Direction'}[0]->{'readings'}[0]->{'value'};
       //build wind direction map
       if ($wind_dir >= 340 || $wind_dir < 20 ) {
@@ -63,12 +64,13 @@ class Weather extends BlockBase {
       }
 
       $wind_speed = $content->data->{'Wind Speed'}[0]->{'readings'}[0]->{'value'};
+      $wind_speed = round($wind_speed * 2.23694, 2);  // convert meters/second to miles/hour
       $water_temp = $content->data->{'Water Temperature'}[0]->{'readings'}[0]->{'value'};
       $water_temp_F = $water_temp * 1.8 + 32;
       $precipitation = $content->data->{'Precipitation'}[0]->{'readings'}[0]->{'value'};
-      $precipitation = round($precipitation / 25.4, 2);
+      $precipitation = round($precipitation / 25.4, 2);  //convert mm to inches
       $water_level = $content->data->{'Water Level'}[0]->{'readings'}[0]->{'value'};
-      $water_level = round($water_level / 304.8, 2);
+      $water_level = round($water_level / 304.8, 2);  //convert mm to feet
 
       $output = '<a class="button" href="#" data-open="weather_modal">Current Weather Conditions</a>';
       $output .= '<div class="reveal" id="weather_modal" data-reveal>';
