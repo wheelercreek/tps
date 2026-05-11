@@ -79,11 +79,11 @@ class Weather extends BlockBase {
       $output .= '<div class="row"><span class="weather_label">Air Temperature:</span> <span class="weather_val">' . $air_temp_F. ' &#8457;</span></div>';
       $output .= '<div class="row"><span class="weather_label">Atmospheric Pressure:</span> <span class="weather_val">' . $atmospheric_pressure. ' kPa</span></div>';
       $output .= '<div class="row"><span class="weather_label">Wind Direction:</span> <span class="weather_val">' . $wind_dir. '</span></div>';
-      $output .= '<div class="row"><span class="weather_label">Wind Speed:</span> <span class="weather_val">' . $wind_speed. ' meters/second</span></div>';
-      $output .= '<div class="row"><span class="weather_label">Wind Gust:</span> <span class="weather_val">' . $wind_gust. ' meters/second</span></div>';
+      $output .= '<div class="row"><span class="weather_label">Wind Speed:</span> <span class="weather_val">' . $wind_speed. ' mph</span></div>';
+      $output .= '<div class="row"><span class="weather_label">Wind Gust:</span> <span class="weather_val">' . $wind_gust. ' mph</span></div>';
       $output .= '<div class="row"><span class="weather_label">Water Temperature:</span> <span class="weather_val">' . $water_temp_F. ' &#8457;</span></div>';
-      $output .= '<div class="row"><span class="weather_label">Water Level:</span> <span class="weather_val">' . $water_level. ' ft.</span></div>';
-      $output .= '<div class="row"><span class="weather_label">Precipitation:</span> <span class="weather_val">' . $precipitation. ' in.</span></div>';
+      $output .= '<div class="row"><span class="weather_label">Water Level:</span> <span class="weather_val">' . $water_level. ' ft</span></div>';
+      $output .= '<div class="row"><span class="weather_label">Precipitation:</span> <span class="weather_val">' . $precipitation. ' in</span></div>';
       $output .= '<p>These readings come from an underwater weather sensor at the lighthouse.</p></div>';
       $output .= '<button class="close-button" data-close aria-label="Close modal" type="button"><span aria-hidden="true">&times;</span></button></div>';
     }
