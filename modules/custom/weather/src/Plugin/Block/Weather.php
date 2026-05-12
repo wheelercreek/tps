@@ -78,7 +78,7 @@ class Weather extends BlockBase {
       $output .= '<div class="weather_container"><h3>Current Conditions</h3>';
       $output .= '<div class="row"><span class="weather_label">Date & Time:</span> <span class="weather_val">' . $datetime . '</span></div>';
       $output .= '<div class="row"><span class="weather_label">Air Temperature:</span> <span class="weather_val">' . $air_temp_F. ' &#8457;</span></div>';
-      $output .= '<div class="row"><span class="weather_label">Atmospheric Pressure (PRES):</span> <span class="weather_val">' . $atmospheric_pressure_psi . ' psi ('. $atmospheric_pressure. ' kPa)</span></div>';
+      $output .= '<div class="row"><span class="weather_label">Atmospheric Pressure (PRES):</span> <span class="weather_val">' . $atmospheric_pressure_psi . ' psi</span></div>';
       $output .= '<div class="row"><span class="weather_label">Wind Direction (WDIR):</span> <span class="weather_val">' . $wind_dir_txt . ' ('. $wind_dir. '&#176;)</span></div>';
       $output .= '<div class="row"><span class="weather_label">Wind Speed (WSPD):</span> <span class="weather_val">' . $wind_speed. ' kts</span></div>';
       $output .= '<div class="row"><span class="weather_label">Wind Gust (GST):</span> <span class="weather_val">' . $wind_gust. ' kts</span></div>';
@@ -92,7 +92,7 @@ class Weather extends BlockBase {
     return [
       '#markup' => $output,
       '#attached' => ['library' => 'weather/drupal.weather'],
-      '#allowed_tags' => ['a', 'div', 'span', 'button','h3','p'],
+      '#allowed_tags' => ['a', 'div', 'span', 'button','h3','p', 'br'],
     ];
   }
 
