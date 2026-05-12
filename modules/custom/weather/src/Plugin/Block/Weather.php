@@ -34,7 +34,7 @@ class Weather extends BlockBase {
       $air_temp = $content->data->{'Air Temperature'}[0]->{'readings'}[0]->{'value'};
       $air_temp_F = $air_temp * 1.8 + 32;
       $atmospheric_pressure = $content->data->{'Atmospheric Pressure'}[0]->{'readings'}[0]->{'value'};
-      $atmospheric_pressure = round($atmospheric_pressure * 10, 2);
+      $atmospheric_pressure_psi = round($atmospheric_pressure * 0.1450377377, 2);
       $wind_gust = $content->data->{'Gust Speed'}[0]->{'readings'}[0]->{'value'};
       $wind_gust = round($wind_gust * 1.94384, 2); // convert meters/second to knots
       $wind_dir = $content->data->{'Wind Direction'}[0]->{'readings'}[0]->{'value'};
@@ -78,7 +78,7 @@ class Weather extends BlockBase {
       $output .= '<div class="weather_container"><h3>Current Conditions</h3>';
       $output .= '<div class="row"><span class="weather_label">Date & Time:</span> <span class="weather_val">' . $datetime . '</span></div>';
       $output .= '<div class="row"><span class="weather_label">Air Temperature:</span> <span class="weather_val">' . $air_temp_F. ' &#8457;</span></div>';
-      $output .= '<div class="row"><span class="weather_label">Atmospheric Pressure (PRES):</span> <span class="weather_val">' . $atmospheric_pressure. ' mbar</span></div>';
+      $output .= '<div class="row"><span class="weather_label">Atmospheric Pressure (PRES):</span> <span class="weather_val">' . $atmospheric_pressure_psi . ' psi ('. $atmospheric_pressure. ' kPa)</span></div>';
       $output .= '<div class="row"><span class="weather_label">Wind Direction (WDIR):</span> <span class="weather_val">' . $wind_dir_txt . ' ('. $wind_dir. '&#176;)</span></div>';
       $output .= '<div class="row"><span class="weather_label">Wind Speed (WSPD):</span> <span class="weather_val">' . $wind_speed. ' kts</span></div>';
       $output .= '<div class="row"><span class="weather_label">Wind Gust (GST):</span> <span class="weather_val">' . $wind_gust. ' kts</span></div>';
