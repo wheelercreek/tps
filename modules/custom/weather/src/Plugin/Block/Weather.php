@@ -93,7 +93,6 @@ class Weather extends BlockBase {
       '#markup' => $output,
       '#attached' => ['library' => 'weather/drupal.weather'],
       '#allowed_tags' => ['a', 'div', 'span', 'button','h3','p', 'br'],
-      '#cache' => ['max-age' => 0],
     ];
   }
 
