@@ -73,7 +73,7 @@ class Weather extends BlockBase {
       $water_level = $content->data->{'Water Level'}[0]->{'readings'}[0]->{'value'};
       $water_level = round($water_level / 304.8, 2);  //convert mm to feet
 
-      $output = '<a class="button" href="#" data-open="weather_modal">Current Weather Conditions</a>';
+      $output = '<a href="#" class="button" data-open="weather_modal">Current Weather Conditions</a>';
       $output .= '<div class="reveal" id="weather_modal" data-reveal>';
       $output .= '<div class="weather_container"><h3>Current Conditions</h3>';
       $output .= '<div class="row"><span class="weather_label">Date & Time:</span> <span class="weather_val">' . $datetime . '</span></div>';
@@ -97,6 +97,6 @@ class Weather extends BlockBase {
   }
 
   public function getCacheMaxAge() {
-    return 0;
+    return 1;
   }
 }
