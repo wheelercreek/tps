@@ -96,5 +96,8 @@ class Weather extends BlockBase {
       '#cache' => ['max-age' => 0],
     ];
   }
-  
+
+  public function getCacheMaxAge() {
+    return 0;
+  }
 }
