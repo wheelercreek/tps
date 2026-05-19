@@ -50,3 +50,35 @@ span.menu-name {
   color: #222222;
   transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
 }
+.app-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
+  height: 58px;
+  border-radius: 15px;
+  margin: 0 auto .7rem;
+  color: #ffffff;
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1;
+}
+.amazon .app-icon {
+
+  font-family: Georgia, serif;
+  font-style: italic;
+}
+.apple .app-icon {
+
+}
+.spotify .app-icon {
+
+}
+.pandora .app-icon {
+
+}
+.app-label {
+  display: block;
+  font-weight: 700;
+  font-size: .95rem;
+}
