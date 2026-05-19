@@ -62,9 +62,9 @@ span.menu-name {
   font-size: 2rem;
   font-weight: 800;
   line-height: 1;
+  background: #666;
 }
 .amazon .app-icon {
-
   font-family: Georgia, serif;
   font-style: italic;
 }
