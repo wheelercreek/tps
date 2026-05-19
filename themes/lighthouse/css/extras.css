@@ -88,3 +88,6 @@ span.menu-name {
 img.align-left {
   margin-right: 1rem;
 }
+.large-6 .block {
+  padding-bottom: 2rem;
+}
