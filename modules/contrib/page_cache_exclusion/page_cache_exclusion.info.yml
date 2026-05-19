@@ -1,0 +1,13 @@
+name: Page Cache Exclusion
+description: Disable caching of specific pages and 4xx responses.
+type: module
+core_version_requirement: ^9 || ^10 || ^11
+package: Other
+configure: page_cache_exclusion.admin
+dependencies:
+  - drupal:page_cache
+
+# Information added by Drupal.org packaging script on 2025-02-27
+version: '1.0.2'
+project: 'page_cache_exclusion'
+datestamp: 1740645789

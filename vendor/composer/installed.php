@@ -3,7 +3,7 @@
         'name' => 'nstp/nstp_web',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'aebd90ee3e8c26d8b71d996fc8d9f3e5e5730ab3',
+        'reference' => '6c548e8bff38edc682b6276635ac3f5b60e9b8da',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -433,6 +433,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'drupal/page_cache_exclusion' => array(
+            'pretty_version' => '1.0.2',
+            'version' => '1.0.2.0',
+            'reference' => '1.0.2',
+            'type' => 'drupal-module',
+            'install_path' => __DIR__ . '/../../modules/contrib/page_cache_exclusion',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'drupal/pathauto' => array(
             'pretty_version' => '1.15.0',
             'version' => '1.15.0.0',
@@ -751,7 +760,7 @@
         'nstp/nstp_web' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'aebd90ee3e8c26d8b71d996fc8d9f3e5e5730ab3',
+            'reference' => '6c548e8bff38edc682b6276635ac3f5b60e9b8da',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

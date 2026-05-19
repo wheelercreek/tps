@@ -20,6 +20,7 @@
         "drupal/ctools": "^4.1",
         "drupal/honeypot": "^2.1",
         "drupal/imce": "^3.1",
+        "drupal/page_cache_exclusion": "^1.0",
         "drupal/pathauto": "^1.13",
         "drupal/quickedit": "^1.0",
         "drupal/rdf": "^2.1",

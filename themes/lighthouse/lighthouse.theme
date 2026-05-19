@@ -27,7 +27,7 @@ function lighthouse_preprocess_html(&$vars) {
 }
 
 function lighthouse_preprocess_page(&$vars) {
-
+  
 }
 
 function lighthouse_preprocess_field(&$vars) {
