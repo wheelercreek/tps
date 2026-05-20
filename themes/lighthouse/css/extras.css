@@ -91,3 +91,75 @@ img.align-left {
 .large-6 .block {
   padding-bottom: 2rem;
 }
+
+.illuminate-platforms {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  padding: 10px 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.illuminate-platform-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #ffffff;
+  width: 95px;
+  transition: transform 0.2s ease;
+}
+
+.illuminate-platform-btn:hover {
+  transform: translateY(-3px);
+}
+
+.illuminate-platform-icon {
+  width: 62px;
+  height: 62px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+}
+
+.illuminate-platform-label {
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.2;
+  color: #ffffff;
+}
+
+/* Apple Music */
+.apple-music {
+  background: linear-gradient(135deg, #fa233b 0%, #ff6b81 100%);
+}
+
+/* Amazon Music */
+.amazon-music {
+  background: #0f172a;
+}
+
+/* Spotify */
+.spotify {
+  background: #1ed760;
+}
+
+/* Pandora */
+.pandora {
+  background: #ffffff;
+}
+
+.illuminate-platform-icon img {
+  width: 70%;
+  height: 70%;
+  object-fit: contain;
+}
