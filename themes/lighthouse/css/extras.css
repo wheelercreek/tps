@@ -43,12 +43,6 @@ span.menu-name {
   display: block;
   text-align: center;
   text-decoration: none;
-  background: #000;
-  border: 1px solid #d8d8d8;
-  border-radius: 10px;
-  padding: 1rem .6rem;
-  color: #222222;
-  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
 }
 .app-icon {
   display: flex;
@@ -81,9 +75,9 @@ span.menu-name {
 }
 .music-app:hover, .music-app:focus {
   transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(0,0,0,.16);
+  /*box-shadow: 0 6px 18px rgba(0,0,0,.16);
   border-color: #1f4e79;
-  color: #222222;
+  color: #222222;*/
 }
 img.align-left {
   margin-right: 1rem;
@@ -97,7 +91,6 @@ img.align-left {
   flex-wrap: wrap;
   gap: 18px;
   align-items: center;
-  justify-content: center;
   background: transparent;
   padding: 10px 0;
   font-family: Arial, Helvetica, sans-serif;
@@ -125,9 +118,9 @@ img.align-left {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 8px;
   overflow: hidden;
   box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+  margin: 8px auto;
 }
 
 .illuminate-platform-label {
