@@ -29,7 +29,7 @@ class Weather extends BlockBase {
       $output = '<p>No weather data available at this time.</p>';
     } else {
       $datetime = $content->data->{'Air Temperature'}[0]->{'readings'}[0]->{'datetime'};
-      $datetime = new DateTimePlus($datetime, new \DateTimeZone('America/New_York'));
+      $datetime = new DateTimePlus($datetime, new \DateTimeZone('UTC'));
       $datetime = $datetime->format('Y-m-d g:ia');
       $air_temp = $content->data->{'Air Temperature'}[0]->{'readings'}[0]->{'value'};
       $air_temp_F = $air_temp * 1.8 + 32;
