@@ -4,9 +4,6 @@
  */
 
 (function ($, Drupal, once) {
-
-  'use strict';
-
   var tooltipDefaultOptions = {
     delay: 100
   };
@@ -26,7 +23,7 @@
    * @type {Drupal~behavior}
    */
   Drupal.behaviors.webformTooltipElement = {
-    attach: function (context) {
+    attach(context) {
       if (!window.tippy) {
         return;
       }
@@ -48,7 +45,7 @@
         }
 
         var options = $.extend({
-          content: $description.html(),
+          content: Drupal.webform.xss.filter($description.html()),
           allowHTML: true
         }, Drupal.webform.tooltipElement.options);
 
@@ -63,7 +60,7 @@
    * @type {Drupal~behavior}
    */
   Drupal.behaviors.webformTooltipLink = {
-    attach: function (context) {
+    attach(context) {
       if (!window.tippy) {
         return;
       }
@@ -72,7 +69,7 @@
         var title = $(this).attr('title');
         if (title) {
           var options = $.extend({
-            content: title,
+            content: Drupal.webform.xss.filter(title),
             allowHTML: true
           }, Drupal.webform.tooltipLink.options);
 

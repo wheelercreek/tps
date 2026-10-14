@@ -2,9 +2,9 @@
 
 namespace Drupal\webform\Element;
 
+use Drupal\Component\Serialization\Yaml;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Render\Element\FormElement;
-use Drupal\Core\Serialization\Yaml;
+use Drupal\Core\Render\Element\FormElementBase;
 use Drupal\webform\Utility\WebformElementHelper;
 use Drupal\webform\Utility\WebformYaml;
 
@@ -13,7 +13,7 @@ use Drupal\webform\Utility\WebformYaml;
  *
  * @FormElement("webform_element_attributes")
  */
-class WebformElementAttributes extends FormElement {
+class WebformElementAttributes extends FormElementBase {
 
   /**
    * {@inheritdoc}
@@ -125,13 +125,13 @@ class WebformElementAttributes extends FormElement {
       '#mode' => 'yaml',
       '#title' => t('@title custom attributes (YAML)', $t_args),
       '#description' => t('Enter additional attributes to be added the @type.', $t_args),
-      '#attributes__access' => (!\Drupal::moduleHandler()->moduleExists('webform_ui') || \Drupal::currentUser()->hasPermission('edit webform source')),
+      '#access' => (!\Drupal::moduleHandler()->moduleExists('webform_ui') || \Drupal::currentUser()->hasPermission('edit webform source')),
       '#default_value' => WebformYaml::encode($attributes),
     ];
 
     // Apply custom properties. Typically used for descriptions.
     foreach ($element as $key => $value) {
-      if (strpos($key, '__') !== FALSE) {
+      if (str_contains($key, '__')) {
         [$element_key, $property_key] = explode('__', ltrim($key, '#'));
         $element[$element_key]["#$property_key"] = $value;
       }
@@ -176,7 +176,9 @@ class WebformElementAttributes extends FormElement {
       $attributes['style'] = $values['style'];
     }
 
-    if (!empty($values['attributes'])) {
+    // Make sure the attributes are validate via the WebformCodeMirror element.
+    // @see \Drupal\webform\Element\WebformCodeMirror::validateWebformCodeMirror
+    if (!empty($values['attributes']) && !$form_state->getError($element['attributes'])) {
       $attributes += Yaml::decode($values['attributes']);
     }
 

@@ -4,9 +4,6 @@
  */
 
 (function ($, Drupal, once) {
-
-  'use strict';
-
   /**
    * Attach behaviors to trigger submit button from input onchange.
    *
@@ -16,12 +13,24 @@
    *   Attaches form trigger submit events.
    */
   Drupal.behaviors.webformSubmitTrigger = {
-    attach: function (context) {
-      $(once('webform-trigger-submit', '[data-webform-trigger-submit]')).on('change', function () {
-        var submit = $(this).attr('data-webform-trigger-submit');
-        $(submit).trigger('mousedown');
-      });
-    }
+    attach(context) {
+      $(once('webform-trigger-submit', '[data-webform-trigger-submit]')).on(
+        'change',
+        function () {
+          const submitSelector = this.getAttribute(
+            'data-webform-trigger-submit',
+          );
+          let submitElement;
+          try {
+            submitElement = document.querySelector(submitSelector);
+          } catch (error) {
+            return;
+          }
+          if (submitElement) {
+            $(submitElement).trigger('mousedown');
+          }
+        },
+      );
+    },
   };
-
 })(jQuery, Drupal, once);

@@ -1,0 +1,7 @@
+# Service definitions for the block_class module.
+
+services:
+  # Provide BC Hook implementation for Drupal versions from 10.1 to 11.0.
+  Drupal\block_class\Hook\BlockClassHooks:
+    class: Drupal\block_class\Hook\BlockClassHooks
+    autowire: true

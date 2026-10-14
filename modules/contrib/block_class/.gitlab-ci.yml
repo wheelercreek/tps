@@ -18,6 +18,9 @@ include:
       - "/includes/include.drupalci.variables.yml"
       - "/includes/include.drupalci.workflows.yml"
 
+  # GitLab Advanced SAST template for Drupal projects.
+  - template: Security/SAST.gitlab-ci.yml
+
 ################
 # Pipeline configuration variables are defined with default values and descriptions in the file
 # https://git.drupalcode.org/project/gitlab_templates/-/blob/main/includes/include.drupalci.variables.yml
@@ -43,6 +46,17 @@ variables:
   OPT_IN_TEST_PREVIOUS_MAJOR: 1
   OPT_IN_TEST_NEXT_MAJOR: 1
   OPT_IN_TEST_MAX_PHP: 1
+  # OPT_IN_TEST_DRUPAL_CMS: 1
+  # Speed up the execution of the Tests.
+  _PHPUNIT_CONCURRENT: 1
+
+  # Enable secret detection job.
+  RUN_JOB_SECRET_DETECTION: 1
+  # Enable upgrade status job (compatibility with next major).
+  # RUN_JOB_UPGRADE_STATUS: 1
+
+  # # Convenient for debugging: Enable in issue forks for testing.
+  # _SHOW_ENVIRONMENT_VARIABLES: 1
 
 #
 # Composer overrides and configuration.
@@ -54,16 +68,24 @@ composer:
 composer (max PHP version):
   after_script:
     - composer require drupal/bartik drupal/seven
-# @TODO: D11 is not yet compatible with bartik and seven in contrib (#3434485).
-# composer (next major):
-#   after_script:
-#     - composer require drupal/bartik drupal/seven
-composer (next minor):
-  after_script:
-    - composer require drupal/bartik drupal/seven
 composer (previous minor):
   after_script:
     - composer require drupal/bartik drupal/seven
+composer (next minor):
+  after_script:
+    - composer require drupal/bartik drupal/seven
+composer (previous major):
+  after_script:
+    - composer require drupal/bartik drupal/seven
+
+# #
+# # Composer audit: scan composer.lock for known security advisories.
+# #
+# composer-audit:
+#   stage: validate
+#   script:
+#     - composer audit --locked --no-dev
+#   allow_failure: false
 
 #
 # CSPELL overrides and configuration.
@@ -86,19 +108,19 @@ phpcs:
   # Require phpcs to pass.
   allow_failure: false
 
-#
-# PHPSTAN overrides and configuration.
-#
-phpstan:
-  # Require phpstan to pass.
-  allow_failure: false
+# #
+# # PHPSTAN overrides and configuration.
+# #
+# phpstan:
+#   # Require phpstan to pass.
+#   allow_failure: false
 
-#
-# PHPUNIT overrides and configuration.
-#
-phpunit:
-  # Require phpunit to pass.
-  allow_failure: false
+# #
+# # PHPUNIT overrides and configuration.
+# #
+# phpunit:
+#   # Require phpunit to pass.
+#   allow_failure: false
 
 # #
 # # STYLELINT overrides and configuration.
@@ -106,3 +128,48 @@ phpunit:
 # stylelint:
 #   # Require stylelint to pass.
 #   allow_failure: false
+
+#
+# Run before script to remove attributes if version is D10.
+#
+phpstan (previous major):
+  before_script:
+    - if [[ "$DRUPAL_CORE" =~ ^10 ]]; then
+    -   echo "Removing PHP attributes for Drupal $DRUPAL_CORE"
+    -   sed -i '/#\[LegacyHook\]/d' $DRUPAL_PROJECT_FOLDER/block_class.module
+    -   sed -i '/#\[Hook/d' $DRUPAL_PROJECT_FOLDER/src/Hook/BlockClassHooks.php
+    -   sed -i '/#\[Group/d' $DRUPAL_PROJECT_FOLDER/tests/src/Functional/BlockClassTest.php
+    -   sed -i '/#\[RunTestsInSeparateProcesses]/d' $DRUPAL_PROJECT_FOLDER/tests/src/Functional/BlockClassTest.php
+    -   sed -i '/#\[DataProvider/d' $DRUPAL_PROJECT_FOLDER/tests/src/Functional/BlockClassTest.php
+    -   sed -i '/#\[Group/d' $DRUPAL_PROJECT_FOLDER/tests/src/Kernel/BlockClassConfigSchemaTest.php
+    -   sed -i '/#\[RunTestsInSeparateProcesses]/d' $DRUPAL_PROJECT_FOLDER/tests/src/Kernel/BlockClassConfigSchemaTest.php
+    -   sed -i '/#\[CoversClass/d' $DRUPAL_PROJECT_FOLDER/tests/src/Kernel/Plugin/Validation/Constraint/CssClassesConstraintValidatorTest.php
+    -   sed -i '/#\[Group/d' $DRUPAL_PROJECT_FOLDER/tests/src/Kernel/Plugin/Validation/Constraint/CssClassesConstraintValidatorTest.php
+    -   sed -i '/#\[RunTestsInSeparateProcesses]/d' $DRUPAL_PROJECT_FOLDER/tests/src/Kernel/Plugin/Validation/Constraint/CssClassesConstraintValidatorTest.php
+    -   sed -i '/#\[CoversClass/d' $DRUPAL_PROJECT_FOLDER/tests/src/Unit/Plugin/Validation/Constraint/CssClassesConstraintValidatorTest.php
+    -   sed -i '/#\[Group/d' $DRUPAL_PROJECT_FOLDER/tests/src/Unit/Plugin/Validation/Constraint/CssClassesConstraintValidatorTest.php
+    -   sed -i '/#\[DataProvider/d' $DRUPAL_PROJECT_FOLDER/tests/src/Unit/Plugin/Validation/Constraint/CssClassesConstraintValidatorTest.php
+    - fi
+
+################
+# Gitlab security: Use GitLab Advanced SAST for comprehensive PHP/JS scanning.
+################
+
+#
+# Enable GitLab Advanced SAST to scan the module's source code.
+#
+gitlab-advanced-sast:
+  variables:
+    GITLAB_ADVANCED_SAST_ENABLED: 'true'
+    # Only scan the block_class module source code.
+    SAST_EXCLUDED_PATHS: "spec, test, tmp, vendor, web"
+
+#
+# SAST overrides: Restrict scan scope to the module's source code only.
+# Exclude vendor/ and web/ directories added by the CI test environment setup
+# to $CI_PROJECT_DIR — they are not part of the module itself.
+#
+semgrep-sast:
+  variables:
+    SAST_EXCLUDED_PATHS: "spec, test, tmp, vendor, web"
+

@@ -1,7 +1,23 @@
+# Configuration schema for the block_class module.
+
+# Extends the block third-party configuration schema to add a "classes" property
+# to the block configuration.
 block.block.*.third_party.block_class:
   type: mapping
   label: Block class third party settings
+  # Require all configuration properties to be set and valid.
+  constraints:
+    FullyValidatable: ~
   mapping:
     classes:
       type: string
       label: Additional classes for the block
+      constraints:
+        NotBlank: []
+        # Each space-separated token must be a valid CSS identifier per the
+        # CSS 2.1 spec. Validation reuses Html::cleanCssIdentifier(), which
+        # is the same function used to sanitize the classes at render time,
+        # ensuring consistency between input validation and output rendering.
+        # @see \Drupal\block_class\Plugin\Validation\Constraint\CssClassesConstraint
+        # @see \Drupal\Component\Utility\Html::cleanCssIdentifier()
+        CssClasses: ~

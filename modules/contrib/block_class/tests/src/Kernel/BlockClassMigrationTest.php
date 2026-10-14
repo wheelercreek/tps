@@ -4,14 +4,17 @@ namespace Drupal\Tests\block_class\Kernel;
 
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Tests\migrate_drupal\Kernel\MigrateDrupalTestBase;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
- * Tests Drupal 7 block class → Drupal 10 block class migrations.
+ * Tests Drupal 7 block class → Drupal 10/11 block class migrations.
  *
  * @group block_class
  */
-class BlockClassMigrationTest extends MigrateDrupalTestBase {
+#[Group('block_class')]
+#[RunTestsInSeparateProcesses]
+class BlockClassMigrationTest extends BlockClassMigrationTestBase {
 
   /**
    * {@inheritdoc}
@@ -31,28 +34,19 @@ class BlockClassMigrationTest extends MigrateDrupalTestBase {
    */
   protected function setUp(): void {
     parent::setUp();
-    // Skip this Kernel test for D11 (next major), as a temporary solution.
-    if (version_compare(\Drupal::VERSION, '11', '<')) {
-      $this->installEntitySchema('block_content');
-      $this->installConfig(['block_content']);
 
-      // Install the themes used for this test.
-      $this->container->get('theme_installer')->install(['bartik', 'seven']);
+    $this->installEntitySchema('block_content');
+    $this->installConfig(['block_content']);
 
-      $this->loadFixture(implode(DIRECTORY_SEPARATOR, [
-        \Drupal::service('extension.list.module')->getPath('migrate_drupal'),
-        'tests',
-        'fixtures',
-        'drupal7.php',
-      ]));
-    }
-    else {
-      // The Kernel tests for module's Migrate upgrade from D7 currently require
-      // the Bartik and Seven contrib themes which are not yet compatible with
-      // Drupal 11, at this time (#3428214, #3434485). Therefore, as a temporary
-      // work-around these tests are disabled/skipped for D11.
-      $this->markTestSkipped('All tests in this file should be inactive for Drupal 11, until required contrib themes Bartik and Seven become compatible.');
-    }
+    // Install the themes used for this test.
+    $this->container->get('theme_installer')->install(['bartik', 'seven']);
+
+    $this->loadFixture(implode(DIRECTORY_SEPARATOR, [
+      \Drupal::service('extension.list.module')->getPath('migrate_drupal'),
+      'tests',
+      'fixtures',
+      'drupal7.php',
+    ]));
   }
 
   /**
@@ -79,14 +73,25 @@ class BlockClassMigrationTest extends MigrateDrupalTestBase {
     }
 
     $this->startCollectingMessages();
-    $this->executeMigrations([
+
+    $migrations = [
       'd7_user_role',
       'd7_user',
       'block_content_type',
+      'block_content_body_field_storage',
       'block_content_body_field',
       'd7_filter_format',
       'd7_custom_block',
-    ]);
+    ];
+
+    // Compatibility support for Drupal 9.
+    if (version_compare(\Drupal::VERSION, '10', '<')) {
+      // Unset migration 'block_content_body_field_storage' which does not exist
+      // in Drupal 9.
+      unset($migrations[3]);
+    }
+
+    $this->executeMigrations($migrations);
 
     $this->startCollectingMessages();
     $this->executeMigrations(['d7_block']);
@@ -170,21 +175,48 @@ class BlockClassMigrationTest extends MigrateDrupalTestBase {
    * @return array[]
    *   The test cases.
    */
-  public function providerTest(): array {
-    return [
-      'Without D7 Block Class' => [
-        'D7 Block Class installed' => FALSE,
-        'Expected block_class third_party_settings per block config ID' => [],
-      ],
-      'D7 Block Class data' => [
-        'D7 Block Class installed' => TRUE,
-        'Expected block_class third_party_settings per block config ID' => [
-          'bartik_system_main' => [
-            'classes' => 'block-class__system system-main-block-class',
+  public static function providerTest(): array {
+    $tests = [];
+    // @todo Remove compatibility code below when support for D9 is dropped.
+    if (version_compare(\Drupal::VERSION, '10', '<')) {
+      $tests = [
+        'Without D7 Block Class' => [
+          'D7 Block Class installed' => FALSE,
+          'Expected block_class third_party_settings per block config ID' => [],
+        ],
+        'D7 Block Class data' => [
+          'D7 Block Class installed' => TRUE,
+          'Expected block_class third_party_settings per block config ID' => [
+            'bartik_system_main' => [
+              'classes' => 'block-class__system system-main-block-class',
+            ],
           ],
         ],
-      ],
-    ];
+      ];
+    }
+    else {
+      $tests = [
+        // Without D7 Block Class module.
+        [
+          // D7 Block Class *not* installed.
+          FALSE,
+          // No expected block_class third_party_settings per block config ID.
+          [],
+        ],
+        // D7 Block Class data present.
+        [
+          // D7 Block Class installed.
+          TRUE,
+          // Expected block_class third_party_settings per block config ID.
+          [
+            'bartik_system_main' => [
+              'classes' => 'block-class__system system-main-block-class',
+            ],
+          ],
+        ],
+      ];
+    }
+    return $tests;
   }
 
 }

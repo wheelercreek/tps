@@ -6,6 +6,7 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Url;
 use Drupal\webform\Entity\Webform;
+use Drupal\webform\Plugin\WebformHandler\RemotePostWebformHandler;
 use Drupal\webform\Plugin\WebformHandlerInterface;
 use Drupal\webform\Utility\WebformDialogHelper;
 use Drupal\webform\WebformInterface;
@@ -56,7 +57,13 @@ class WebformPluginHandlerController extends ControllerBase implements Container
     foreach ($definitions as $plugin_id => $definition) {
       $row = [];
       $row[] = $plugin_id;
-      $row[] = ['data' => ['#markup' => $definition['label'], '#prefix' => '<span class="webform-form-filter-text-source">', '#suffix' => '</span>']];
+      $row[] = [
+        'data' => [
+          '#markup' => $definition['label'],
+          '#prefix' => '<span class="webform-form-filter-text-source">',
+          '#suffix' => '</span>',
+        ],
+      ];
       $row[] = $definition['description'];
       $row[] = $definition['category'];
       $row[] = (isset($excluded_handlers[$plugin_id])) ? $this->t('Yes') : $this->t('No');
@@ -168,6 +175,13 @@ class WebformPluginHandlerController extends ControllerBase implements Container
       /** @var \Drupal\webform\Plugin\WebformHandlerInterface $handler_plugin */
       $handler_plugin = $this->pluginManager->createInstance($plugin_id);
 
+      // Restrict access to remote post handlers.
+      if ($handler_plugin instanceof RemotePostWebformHandler
+        && !$this->currentUser()->hasPermission('administer webform remote post urls')
+        && !$this->currentUser()->hasPermission('administer webform')) {
+        continue;
+      }
+
       // Check if applicable.
       if (!$handler_plugin->isApplicable($webform)) {
         continue;
@@ -197,7 +211,13 @@ class WebformPluginHandlerController extends ControllerBase implements Container
         $row['title']['data'] = [
           '#type' => 'link',
           '#title' => $definition['label'],
-          '#url' => Url::fromRoute('entity.webform.handler.add_form', ['webform' => $webform->id(), 'webform_handler' => $plugin_id]),
+          '#url' => Url::fromRoute(
+            'entity.webform.handler.add_form',
+            [
+              'webform' => $webform->id(),
+              'webform_handler' => $plugin_id,
+            ]
+          ),
           '#attributes' => WebformDialogHelper::getOffCanvasDialogAttributes($handler_plugin->getOffCanvasWidth()),
           '#prefix' => '<div class="webform-form-filter-text-source">',
           '#suffix' => '</div>',
@@ -224,7 +244,13 @@ class WebformPluginHandlerController extends ControllerBase implements Container
       else {
         $links['add'] = [
           'title' => $this->t('Add handler'),
-          'url' => Url::fromRoute('entity.webform.handler.add_form', ['webform' => $webform->id(), 'webform_handler' => $plugin_id]),
+          'url' => Url::fromRoute(
+            'entity.webform.handler.add_form',
+            [
+              'webform' => $webform->id(),
+              'webform_handler' => $plugin_id,
+            ]
+          ),
           'attributes' => WebformDialogHelper::getOffCanvasDialogAttributes($handler_plugin->getOffCanvasWidth()),
         ];
         $row['operations']['data'] = [
@@ -266,6 +292,7 @@ class WebformPluginHandlerController extends ControllerBase implements Container
     ];
 
     $build['#attached']['library'][] = 'webform/webform.admin';
+    $build['#cache']['contexts'][] = 'user.permissions';
 
     return $build;
   }

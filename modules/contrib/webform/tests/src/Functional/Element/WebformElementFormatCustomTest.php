@@ -2,9 +2,8 @@
 
 namespace Drupal\Tests\webform\Functional\Element;
 
-use Drupal\Component\Utility\DeprecationHelper;
-use Drupal\file\Entity\File;
 use Drupal\Tests\TestFileCreationTrait;
+use Drupal\file\Entity\File;
 use Drupal\webform\Entity\Webform;
 
 /**
@@ -33,7 +32,7 @@ class WebformElementFormatCustomTest extends WebformElementBrowserTestBase {
   /**
    * Tests element custom format.
    */
-  public function testFormatCustom() {
+  public function testFormatCustom(): void {
     $assert_session = $this->assertSession();
 
     $this->drupalLogin($this->rootUser);
@@ -88,6 +87,11 @@ class WebformElementFormatCustomTest extends WebformElementBrowserTestBase {
     $assert_session->responseContains('<tr ><td><em>Five</em></td></tr>');
     $assert_session->responseContains('</table>');
 
+    // Check that multiple custom item format tokens are rendered as values.
+    $assert_session->responseContains('<label>textfield_custom_items_token</label>');
+    $assert_session->responseContains('TOKEN {{ 37 * 41 }}');
+    $assert_session->responseNotContains('TOKEN 1517');
+
     // Check image custom HTML format.
     $assert_session->responseContains('<label>image_custom</label>');
     $assert_session->responseContains('value: 1<br/>');
@@ -121,12 +125,7 @@ element.country: {02-country}<br/>
 
     // Check fieldset displayed as details.
     $assert_session->responseContains('<details class="webform-container webform-container-type-details js-form-wrapper form-wrapper" data-webform-element-id="test_element_format_custom--fieldset_custom" id="test_element_format_custom--fieldset_custom" open="open">');
-    DeprecationHelper::backwardsCompatibleCall(
-      currentVersion: \Drupal::VERSION,
-      deprecatedVersion: '10.3',
-      currentCallable: fn() => $assert_session->responseContains('<summary role="button" aria-controls="test_element_format_custom--fieldset_custom" aria-expanded="true">fieldset_custom</summary>'),
-      deprecatedCallable: fn() => $assert_session->responseContains('<summary role="button" aria-controls="test_element_format_custom--fieldset_custom" aria-expanded="true" aria-pressed="true">fieldset_custom</summary>'),
-    );
+    $assert_session->responseContains('<summary role="button" aria-controls="test_element_format_custom--fieldset_custom" aria-expanded="true">fieldset_custom</summary>');
 
     // Check container custom HTML format.
     $assert_session->responseContains('<h3>fieldset_custom_children</h3>' . PHP_EOL . '<hr />');
@@ -153,6 +152,10 @@ textfield_custom_value_multiple:
 ⦿ /Four/
 ⦿ /Five/
 
+
+TOKEN {{ 37 * 41 }}
+textfield_custom_items_token:
+TOKEN {{ 37 * 41 }}
 
 image_custom:
 value: 1

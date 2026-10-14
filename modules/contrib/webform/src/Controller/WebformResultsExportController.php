@@ -13,6 +13,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Controller routines for webform submission export.
@@ -68,6 +69,9 @@ class WebformResultsExportController extends ControllerBase implements Container
     $query = $request->query->all();
     unset($query['destination']);
     if (isset($query['filename'])) {
+      if (!$this->isValidExportFilename($query['filename'])) {
+        throw new NotFoundHttpException();
+      }
       $build = $this->formBuilder()->getForm('Drupal\webform\Form\WebformResultsExportForm');
 
       // Redirect to file export.
@@ -135,6 +139,9 @@ class WebformResultsExportController extends ControllerBase implements Container
     $this->submissionExporter->setWebform($webform);
     $this->submissionExporter->setSourceEntity($source_entity);
 
+    if (!$this->isValidExportFilename($filename)) {
+      throw new NotFoundHttpException();
+    }
     $file_path = $this->submissionExporter->getFileTempDirectory() . '/' . $filename;
     if (!file_exists($file_path)) {
       $t_args = [
@@ -148,6 +155,19 @@ class WebformResultsExportController extends ControllerBase implements Container
     else {
       return $this->downloadFile($file_path);
     }
+  }
+
+  /**
+   * Checks that the filename belongs to this export and has no path components.
+   */
+  protected function isValidExportFilename(mixed $filename): bool {
+    if (!is_string($filename) || str_contains($filename, '/') || str_contains($filename, '\\')) {
+      return FALSE;
+    }
+
+    $base_file_name = $this->submissionExporter->setExporter()->getBaseFileName();
+    $base_file_name_pattern = '#^' . preg_quote($base_file_name, '#') . '\.(tar\.gz|[a-z0-9]+)\z#';
+    return (bool) preg_match($base_file_name_pattern, $filename);
   }
 
   /**
@@ -240,7 +260,7 @@ class WebformResultsExportController extends ControllerBase implements Container
    * @param mixed|array $context
    *   The batch current context.
    */
-  public static function batchProcess(WebformInterface $webform, ?EntityInterface $source_entity = NULL, array $export_options = [], &$context = []) {
+  public static function batchProcess(WebformInterface $webform, ?EntityInterface $source_entity, array $export_options = [], &$context = []) {
     /** @var \Drupal\webform\WebformSubmissionExporterInterface $submission_exporter */
     $submission_exporter = \Drupal::service('webform_submission.exporter');
     $submission_exporter->setWebform($webform);
@@ -267,6 +287,15 @@ class WebformResultsExportController extends ControllerBase implements Container
     $entity_ids = $query->execute();
     $webform_submissions = WebformSubmission::loadMultiple($entity_ids);
     $submission_exporter->writeRecords($webform_submissions);
+
+    // Free up memory by resetting the entity caches for the processed
+    // submissions and any related entities (users, files, etc.) loaded during
+    // export. Without this, caches grow with each batch iteration, leading to
+    // memory exhaustion during large exports (e.g., 20,000+ submissions).
+    \Drupal::entityTypeManager()
+      ->getStorage('webform_submission')
+      ->resetCache(array_keys($webform_submissions));
+    \Drupal::service('entity.memory_cache')->deleteAll();
 
     // Track progress.
     $context['sandbox']['progress'] += count($webform_submissions);
@@ -319,6 +348,7 @@ class WebformResultsExportController extends ControllerBase implements Container
     $submission_exporter->setExporter($export_options);
 
     if (!$success) {
+      $filename = '';
       $file_path = $submission_exporter->getExportFilePath();
       @unlink($file_path);
       $archive_path = $submission_exporter->getArchiveFilePath();
@@ -334,12 +364,12 @@ class WebformResultsExportController extends ControllerBase implements Container
         $submission_exporter->writeExportToArchive();
         $filename = $submission_exporter->getArchiveFileName();
       }
-
-      /** @var \Drupal\webform\WebformRequestInterface $request_handler */
-      $request_handler = \Drupal::service('webform.request');
-      $redirect_url = $request_handler->getUrl($webform, $source_entity, 'webform.results_export', ['query' => ['filename' => $filename], 'absolute' => TRUE]);
-      return new RedirectResponse($redirect_url->toString());
     }
+
+    /** @var \Drupal\webform\WebformRequestInterface $request_handler */
+    $request_handler = \Drupal::service('webform.request');
+    $redirect_url = $request_handler->getUrl($webform, $source_entity, 'webform.results_export', ['query' => ['filename' => $filename], 'absolute' => TRUE]);
+    return new RedirectResponse($redirect_url->toString());
   }
 
 }
